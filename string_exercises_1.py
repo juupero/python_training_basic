@@ -9,7 +9,6 @@ s2 = "pin"
 print(s2[:2])
 print(s2[1:])
 
-
 # 3. from ’abracadabra’ create:’abra’,’cadabra’
 s3 = "abracadabra"
 print(s3[:s3.index("c")], s3[s3.index("c"):])
@@ -72,7 +71,6 @@ print("'%d'" % num)
 num1 = "4"*3
 print("'%s'" % num1)
 
-# 18. from ’Another bad example, what a good day’ create: ’Another
-good example, what a bad day
+# 18. from ’Another bad example, what a good day’ create: ’Another good example, what a bad day'
 str18 = "Another bad example, what a good day"
 print(str18.replace('good', 'bad').replace('bad','good',1))
