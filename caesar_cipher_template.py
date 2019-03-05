@@ -27,3 +27,10 @@ def decrypt(encrypted_msg, shift):
     """
     # remove this pass statement and write the body of your function
     pass
+
+# Notes
+ALPHABET.index('Z')
+
+my_string = 'one'
+print(3 % len(my_string))
+print(ALPHABET.index('0') % len(ALPHABET))
