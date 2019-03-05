@@ -5,7 +5,6 @@ print(str1.find('o'))
 # 2. Find index of the first ’r’ in ’Anomalocaris’.
 print(str1.index('r'))
 
-
 # 3. Find index of the last ’on’ in ’Waging on the purple drone’
 s3 = "Waging on the purple drone"
 print(s3.rfind('on'))
@@ -81,4 +80,3 @@ print(s18[:2] + s18[2:].replace('0', '9'))
 # 21. From ’what,if,we,have,no,choice?....’ create ’What if we have no choice?’
 s21 = "what,if,we,have,no,choice?...."
 print(s21.replace(',', ' ').capitalize().replace('.', ''))
-
