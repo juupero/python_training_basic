@@ -12,8 +12,11 @@ def encrypt(msg, shift):
     print(encrypt('John', 15)) -> 'YDwC'
     print(encrypt(' ', 6)) -> 'b'
     """
-    # remove this pass statement and write the body of your function
-    pass
+    encrypted_msg = ""
+    for char in msg:
+      modulo_amount = (ALPHABET.index(char) + shift) % len(ALPHABET)
+      encrypted_msg += ALPHABET[modulo_amount]
+    return encrypted_msg
 
 
 def decrypt(encrypted_msg, shift):
@@ -25,12 +28,14 @@ def decrypt(encrypted_msg, shift):
     print(decrypt('eDUHM', 25)) -> Kevin
     print(decrypt('j.GT', -10000)) -> Ivan
     """
-    # remove this pass statement and write the body of your function
-    pass
+    msg = ""
+    for char in encrypted_msg:
+      modulo_amount = (ALPHABET.index(char) - shift) % len(ALPHABET)
+      msg += ALPHABET[modulo_amount]
+    return msg
 
-# Notes
-ALPHABET.index('Z')
-
-my_string = 'one'
-print(3 % len(my_string))
-print(ALPHABET.index('0') % len(ALPHABET))
+# Results
+print(encrypt('John', 15)) # 'YDwC'
+print(encrypt(' ', 6)) # 'b'
+print(decrypt('eDUHM', 25)) # Kevin
+print(decrypt('j.GT', -10000)) # Ivan
