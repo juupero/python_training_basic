@@ -51,13 +51,8 @@ def obfuscate(word, letters_guessed):
     """
     obfuscated_word = word.upper()
     for char in obfuscated_word:
-        obfuscated_word = obfuscated_word.replace(char, "_")
-    for char in letters_guessed:
-        char_location = 0
-        if char.upper() in word.upper():
-            char_location = word.upper().find(char.upper())
-            obfuscated_word = obfuscated_word[char_location].replace("_", char.upper())
-            char_location += 1
+        if char not in letters_guessed:
+            obfuscated_word = obfuscated_word.replace(char, "_")
     print(obfuscated_word)
     print(letters_guessed)
 
