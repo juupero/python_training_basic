@@ -11,7 +11,7 @@ print(s3.rfind('on'))
 
 # 4. Find index of the last ’z’ in ’Superficial’
 s4 = "Superficial"
-#print(s4.index('z'))
+print(s4.index('z'))
 
 # 5. Find index of first ’a’ in the second half of the sentence ’There truly is a dazzling bright world out there, waiting for us to explore.’
 s5 = "There truly is a dazzling bright world out there, waiting for us to explore."

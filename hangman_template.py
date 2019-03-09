@@ -20,8 +20,10 @@ def initialize(word_list):
     until it runs out of new words.
     """
     i = 0
-    while i < len(word_list) and start_new_game(word_list[i], TRIES):
+    while i < len(word_list):
+        start_new_game(word_list[i], TRIES)
         i += 1
+    print("Sorry, you've run out of words. Game over!")
 
 
 def obfuscate(word, letters_guessed):
@@ -47,8 +49,13 @@ def obfuscate(word, letters_guessed):
         input: 'Obi-Wan KENOBI','oteai'
         output: 'O_I-_A_ _E_O_I'
     """
-    # replace the pass statement with your code
-    pass
+    obfuscated_word = word.upper()
+    for char in obfuscated_word:
+        if letters_guessed.upper().find(char) or char is "-":
+            obfuscated_word = obfuscated_word.replace(char, "_")
+    print(obfuscated_word)
+    print(letters_guessed)
+
 
 
 def start_new_game(word, max_tries):
@@ -89,8 +96,15 @@ def start_new_game(word, max_tries):
         output: False
 
     """
-    # replace the pass statement with your code
-    pass
+    try_number = 0
+    letters_guessed = ""
+    while try_number < max_tries:
+        print(INPUT_PROMPT)
+        letters_guessed += input()
+        obfuscate(word, letters_guessed)
+        max_tries -= 1
+        print(f"Tries left {max_tries}")
+    print(GAME_LOST_PHRASE)
 
 
-# initialize(['Obi-Wan Kenobi', 'Alladin'])
+initialize(['Obi-Wan Kenobi', 'Alladin'])
