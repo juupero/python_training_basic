@@ -50,8 +50,8 @@ def obfuscate(word, letters_guessed):
         output: 'O_I-_A_ _E_O_I'
     """
     obfuscated_word = word.upper()
-    for char in obfuscated_word:
-        if letters_guessed.upper().find(char) or char is "-":
+    for char in letters_guessed
+        if char.upper().find(char) or char is "-":
             obfuscated_word = obfuscated_word.replace(char, "_")
     print(obfuscated_word)
     print(letters_guessed)
