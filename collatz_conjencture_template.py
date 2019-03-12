@@ -34,12 +34,12 @@ def get_cycle_length_range(start, end):
     """
   if start > end:
     start, end = end, start
-  # current_max = 0
-  # for n in range(start, end +1):
-  #   result = get_cycle_length(n)
-  #   if result > current_max:
-  #     current_max = result
-  # return current_max
+  current_max = 0
+  for n in range(start, end +1):
+    result = get_cycle_length(n)
+    if result > current_max:
+      current_max = result
+  return current_max
 # Alternative way :
   return max(get_cycle_length(n) for n in range(start, end+1))
 # Results

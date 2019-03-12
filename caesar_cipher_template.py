@@ -18,6 +18,11 @@ def encrypt(msg, shift):
     encrypted_msg += ALPHABET[modulo_amount]
   return encrypted_msg
 
+# Alternative solution:
+  return ''.join(
+    ALPHABET[(ALPHABET.index(letter) + shift) % len(ALPHABET)]
+    for letter in msg
+  )
 
 def decrypt(encrypted_msg, shift):
   """
