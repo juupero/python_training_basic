@@ -8,6 +8,7 @@ INVALID_INPUT = 'Invalid input, try again'
 REMAINING_TRIES = 'Tries left:'
 
 
+
 # DO NOT MODIFY THE initialize function
 def initialize(word_list):
     """
@@ -23,8 +24,6 @@ def initialize(word_list):
     while i < len(word_list):
         start_new_game(word_list[i], TRIES)
         i += 1
-    print("Sorry, you've run out of words. Game over!")
-
 
 def obfuscate(word, letters_guessed):
     """
@@ -49,13 +48,29 @@ def obfuscate(word, letters_guessed):
         input: 'Obi-Wan KENOBI','oteai'
         output: 'O_I-_A_ _E_O_I'
     """
+    available_letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     obfuscated_word = word.upper()
     for char in obfuscated_word:
-        if char not in letters_guessed:
-            obfuscated_word = obfuscated_word.replace(char, "_")
+        if char in available_letters:
+            if char not in letters_guessed.upper():
+                obfuscated_word = obfuscated_word.replace(char, "_")
+    for char in available_letters:
+        if char in obfuscated_word:
+            available_letters = available_letters.replace(char, "")
+    if "_" not in obfuscated_word:
+        print(GAME_WON_PHRASE)
+        print(OFFER_NEXT_GAME)
+        user_decision = input()
+        if user_decision is "y":
+            start_new_game('Alladin', TRIES)
+    if REMAINING_TRIES == 0:
+        print(GAME_LOST_PHRASE)
+        print(OFFER_NEXT_GAME)
+        user_decision = input()
+        if user_decision is "y":
+            start_new_game('Alladin', TRIES)
     print(obfuscated_word)
-    print(letters_guessed)
-
+    print(available_letters)
 
 
 def start_new_game(word, max_tries):
@@ -98,10 +113,16 @@ def start_new_game(word, max_tries):
     """
     try_number = 0
     letters_guessed = ""
+    available_letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     while try_number < max_tries:
-        print(INPUT_PROMPT)
-        letters_guessed += input()
         obfuscate(word, letters_guessed)
+        print(INPUT_PROMPT)
+        letter_given = input()
+        if letter_given.upper() not in available_letters:
+            print(INVALID_INPUT)
+            continue
+        else:
+            available_letters = available_letters.replace(letter_given, "")
         max_tries -= 1
         print(f"Tries left {max_tries}")
     print(GAME_LOST_PHRASE)

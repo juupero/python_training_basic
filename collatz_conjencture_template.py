@@ -32,13 +32,21 @@ def get_cycle_length_range(start, end):
     print(get_cycle_length_range(200, 100)) -> 125
     print(get_cycle_length_range(1, 2)) -> 2
     """
-    # I don't understand the task assignment, yet..
-
+  if start > end:
+    start, end = end, start
+  # current_max = 0
+  # for n in range(start, end +1):
+  #   result = get_cycle_length(n)
+  #   if result > current_max:
+  #     current_max = result
+  # return current_max
+# Alternative way :
+  return max(get_cycle_length(n) for n in range(start, end+1))
 # Results
 print(get_cycle_length(5)) # 6
 print(get_cycle_length(1)) # 1
 print(get_cycle_length(197)) # 27
 # The results of the script are off by minus one, but if you think about it how many steps does it really take for get_cycle_length(1)? The correct answer is zero not one.
-# print(get_cycle_length_range(5, 100)) # 119
-# print(get_cycle_length_range(200, 100)) # 125
-# print(get_cycle_length_range(1, 2)) # 2
+print(get_cycle_length_range(5, 100)) # 119
+print(get_cycle_length_range(200, 100)) # 125
+print(get_cycle_length_range(1, 2)) # 2
