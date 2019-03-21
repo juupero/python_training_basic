@@ -40,9 +40,8 @@ def get_average_winrate(results):
       trials += 1
       if b is True:
         wins += 1
-        print(wins)
     win_rate = wins / trials * 100
     print(f"The average win rate was: {win_rate} %" )
 
 
-get_average_winrate(run_n_trials(5, 10, 11))
+get_average_winrate(run_n_trials(70, 100, 10000))
