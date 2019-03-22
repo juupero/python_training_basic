@@ -10,7 +10,9 @@ def generate_cipher():
     print(generate_cipher()) -> [3, 4, 8, 6]
     """
     # remove the pass statement and put your code here
-    random_number_list = [random.randrange(0, 10) for _ in range(4)]
+    random_number_list = []
+    while len(random_number_list) < 5:
+        random_number_list = [random.randrange(0, 10) for _ in range(4)]
     return random_number_list
 
 
@@ -33,15 +35,14 @@ def get_bulls_and_cows(cipher, guess):
     """
     assert len(cipher) == len(guess) == 4, 'cipher and guess must be lists of length 4'
     # remove the pass statement and put your code here
-    bulls = 0
-    cows = 0
-    zero = 0
+    bulls, cows = 0, 0
+
     for x, y in zip(cipher, guess):
         if x == y:
             bulls += 1
         elif y in cipher:
             cows += 1
-        zero += 1
+
     print (f"{guess} bulls: {bulls}, cows: {cows}")
 
 # guessing = [1,2,3,4]
