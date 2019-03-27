@@ -6,26 +6,27 @@ def use_phonebook():
     """
     given_input = ""
     while given_input != "exit":
-        print("What do you want to do with the phonebook?")
         given_input = input("> ")
 
         words = given_input.split()
+        assert len(words) > 1 and len(words) < 4
 
         if words[0] == "add" and len(words) == 3:
-            phone_number = words[1]
-            contact_name = words[2]
+            _, phone_number, contact_name = words
 
             add_item(phone_number, contact_name)
-            for item in phonebook_dictionary:
-                print(item)
 
-        elif words[0] == "del" and len(words) == 2:
-            contact_name = words[1]
-            delete_item(contact_name)
+            # for item in phonebook_dictionary:
+            #     print(item)
 
-        elif words[0] == "find" and len(words) == 2:
+        elif len(words) == 2:
             contact_name = words[1]
-            find_item(contact_name)
+            if words[0] == "del":
+                delete_item(contact_name)
+            elif words[0] == "find":
+                find_item(contact_name)
+            else:
+                continue
 
         else:
             print("The sentence is invalid. Please try again")
