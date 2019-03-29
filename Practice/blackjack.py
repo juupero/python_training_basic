@@ -81,6 +81,9 @@ class Deck:
             for rank in RANKS:
                 self.deck.append(Card(suit, rank))
 
+    def __len__(self):
+        return len(self.deck)
+
     def shuffle(self):
         random.shuffle(self.deck)
 
@@ -121,6 +124,8 @@ class BlackjackTable():
                 break
         print("Get out of here!")
 
+
+
 class Game():
 
     def __init__(self):
@@ -128,64 +133,67 @@ class Game():
         print("How much money do you got?")
         money_amount = input("> ")
         self.purse = Purse(int(money_amount))
-        print("Okay Hotshot, let's play!  **dealer starts shuffling cards**")
+        print("\nOkay Hotshot, let's play! \n**dealer starts shuffling cards**")
         self.deck = Deck()
         self.deck.shuffle()
         while self.purse.__repr__() > 0:
             self.play_round()
+            if len(self.deck) < 10:
+                print("Oh, we need to reshuffle the cards!")
+                self.deck = Deck()
+        print("\nYou ran out of money. Now get out!\n")
+        exit()
+
 
     def play_round(self):
-        print(f"Okay, you got {self.purse} in your purse. I hope you are ready Hotshot.")
-        print("**dealer starts dealing cards in front of you**")
-        player_hand, self.dealer_hand = Hand(), Hand()
-        player_hand.add_card(self.deck.deal_card())
-        player_hand.add_card(self.deck.deal_card())
+        print(f"\nYou got {self.purse} in your purse. I hope you are ready Hotshot. \nPlace your bets! \n")
+        self.bet = int(input("> "))
+        self.player_hand, self.dealer_hand = Hand(), Hand()
+        self.player_hand.add_card(self.deck.deal_card())
+        self.player_hand.add_card(self.deck.deal_card())
         self.dealer_hand.add_card(self.deck.deal_card())
-        print(f"You got {player_hand} which makes {player_hand.get_value()}.")
+        print(f"You got {self.player_hand} which makes {self.player_hand.get_value()}.")
         print(f"Dealer has {self.dealer_hand} which makes {self.dealer_hand.get_value()}.")
+        if self.player_hand.get_value() == 21:
+            self.won_round()
         response = "hit"
         while response == "hit":
-            print("What do you want to do now? [stand] [hit]")
+            print("What do you want to do now? [stand] [hit]\n")
             response = input("> ")
             if response == "stand":
                 self.dealer_plays()
             elif response == "hit":
-                player_hand.add_card(self.deck.deal_card())
-                if player_hand.get_value() > 21:
-                    print("You lost this one.")
-                    self.purse.lost_round(1)
-                print(f"You got {player_hand} which makes {player_hand.get_value()}.")
+                self.player_hand.add_card(self.deck.deal_card())
+                print(f"You got {self.player_hand} which makes {self.player_hand.get_value()}.")
+                if self.player_hand.get_value() > 21:
+                    self.lost_round()
+                    break
+                elif self.player_hand.get_value() == 21:
+                    self.won_round()
+                    break
+
 
     def dealer_plays(self):
         while self.dealer_hand.get_value() < 17:
             self.dealer_hand.add_card(self.deck.deal_card())
             print(f"Dealer has {self.dealer_hand} which makes {self.dealer_hand.get_value()}.")
-            if self.dealer_hand.get_value() > 21:
-                print("Crap!! I went over, you won Hotshot.")
-                self.purse.won_round(1)
-            elif self.dealer_hand.get_value() == 21:
-                print("Hahaha! You lost this one Hotshot.")
-                self.purse.lost_round(1)
-        if self.dealer_hand.get_value() >= self.player_hand.get_value():
-            print("Hahaha! You lost this one Hotshot.")
+        if self.dealer_hand.get_value() > 21:
+            self.won_round()
+        elif self.dealer_hand.get_value() == 21:
+            self.lost_round()
+        elif self.dealer_hand.get_value() >= self.player_hand.get_value():
+            self.lost_round()
+        else:
+            self.won_round()
 
-    def lost_round(self)
+
+    def lost_round(self):
         print("Hahaha! You lost this one Hotshot.")
-        self.purse.lost_round(1)
+        self.purse.lost_round(self.bet)
 
 
+    def won_round(self):
+        print("You won Hotshot.")
+        self.purse.won_round(self.bet)
 
-
-
-
-start = BlackjackTable()
-
-
-# ten = Card('C', 'T')
-# ace = Card('D', 'A')
-
-# hand = Hand()
-# hand.add_card(ten)
-# hand.add_card(ace)
-
-# print(hand.get_value())
+BlackjackTable()
